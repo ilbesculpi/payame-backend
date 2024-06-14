@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('customer_id')->constrained();
-            $table->foreignId('loan_id')->constrained();
+            $table->ulid('id');
+            $table->foreignUlid('customer_id')->constrained();
+            $table->foreignUlid('loan_id')->constrained();
             $table->dateTime('date');
             $table->decimal('capital_paid', total: 8, places: 2)
                 ->default(0);
@@ -29,6 +29,7 @@ return new class extends Migration
                 ->nullable();
             $table->enum('status', ['pending', 'received']);
             $table->timestamps();
+            $table->primary('id');
         });
     }
 

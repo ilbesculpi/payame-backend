@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('loans', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id');
             $table->foreignId('user_id')
                 ->constrained();
-            $table->foreignId('customer_id')
+            $table->foreignUlid('customer_id')
                 ->constrained();
             $table->date('start_date');
             $table->date('end_date');
@@ -36,6 +36,7 @@ return new class extends Migration
             $table->enum('status', ['active', 'paused', 'completed'])
                 ->default('active');
             $table->timestamps();
+            $table->primary('id');
         });
     }
 

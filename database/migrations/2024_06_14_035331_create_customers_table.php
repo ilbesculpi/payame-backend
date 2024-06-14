@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('customers', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id');
             $table->foreignId('user_id')->constrained();
             $table->string('full_name');
             $table->string('document_id')
@@ -26,6 +26,7 @@ return new class extends Migration
             $table->mediumText('notes')
                 ->nullable();
             $table->timestamps();
+            $table->primary('id');
         });
     }
 
