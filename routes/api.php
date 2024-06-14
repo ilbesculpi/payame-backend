@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\LoanController;
 use App\Http\Controllers\UserController;
 
 Route::any('/info', function(Request $request) {
@@ -17,16 +18,19 @@ Route::any('/info', function(Request $request) {
 // })->middleware('auth:sanctum');
 
 Route::resource('users', UserController::class);
+
 Route::resource('{user}/customers', CustomerController::class)
     ->missing(function (Request $request) {
         return response()->json([
             'code' => 'Not Found',
-            'message' => 'Customer not found.'
+            'message' => 'Resource not found.'
         ], 404);
     });
 
-
-// Route::apiResources([
-//     'photos' => PhotoController::class,
-//     'posts' => PostController::class,
-// ]);
+Route::resource('{user}/loans', LoanController::class)
+    ->missing(function (Request $request) {
+        return response()->json([
+            'code' => 'Not Found',
+            'message' => 'Resource not found.'
+        ], 404);
+    });

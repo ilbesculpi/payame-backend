@@ -9,7 +9,7 @@ use App\Models\User;
 class CustomerController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Retrieve a list of Customer.
      */
     public function index(User $user)
     {
@@ -111,4 +111,5 @@ class CustomerController extends Controller
                 'result' => $result
             ]);
     }
+
 }
