@@ -21,17 +21,24 @@ return new class extends Migration
             $table->date('end_date');
             $table->enum('method', ['simple', 'fixed', 'compound', 'annual'])
                 ->default('simple');
-            $table->float('interest');
+            $table->float('interest_rate');
             $table->decimal('initial_capital', total: 8, places: 2);
             $table->decimal('capital', total: 8, places: 2);
             $table->decimal('quota', total: 8, places: 2);
             $table->enum('frequency', ['monthly', 'single', 'open'])
                 ->default('monthly');
-            $table->smallInteger('day_of_month');
-            $table->smallInteger('payments');
-            $table->smallInteger('payments_pending')
+            $table->string('pay_day')
+                ->nullable();
+            $table->smallInteger('terms')
+                ->nullable();
+            $table->smallInteger('payments_remaining')
+                ->nullable()
                 ->default(0);
             $table->smallInteger('payments_received')
+                ->nullable()
+                ->default(0);
+            $table->smallInteger('payments_overdue')
+                ->nullable()
                 ->default(0);
             $table->enum('status', ['active', 'paused', 'completed'])
                 ->default('active');
