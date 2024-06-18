@@ -27,24 +27,17 @@ class LoanController extends Controller
      */
     public function store(Request $request, User $user)
     {
-        $loan = new Loan();
+        $loan = Loan::makeInstance(
+            $request->input('capital'),
+            $request->input('interest_rate'),
+            $request->input('payments'),
+            $request->input('start_date'),
+            $request->input('frequency'),
+            $request->input('pay_day')
+        );
         $loan->customer_id = $request->input('customer_id');
         $loan->user_id = $user->id;
         $loan->status = 'active';
-        $loan->fill(
-            $request->only([
-                'start_date',
-                'end_date',
-                'interest_rate',
-                'method',
-                'capital',
-                'quota',
-                'frequency',
-                'pay_day',
-                'payments',
-            ])
-        );
-        $loan->setInitalValues();
         $loan->save();
         return response()
             ->json([
