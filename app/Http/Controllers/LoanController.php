@@ -30,7 +30,7 @@ class LoanController extends Controller
         $loan = Loan::makeInstance(
             $request->input('capital'),
             $request->input('interest_rate'),
-            $request->input('payments'),
+            $request->input('terms'),
             $request->input('start_date'),
             $request->input('frequency'),
             $request->input('pay_day')

@@ -29,7 +29,7 @@ return new class extends Migration
                 ->default('monthly');
             $table->string('pay_day')
                 ->nullable();
-            $table->smallInteger('payments')
+            $table->smallInteger('terms')
                 ->nullable();
             $table->smallInteger('payments_remaining')
                 ->nullable()

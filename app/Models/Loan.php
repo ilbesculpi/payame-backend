@@ -22,11 +22,9 @@ class Loan extends Model
         'interest_rate',
         'method',
         'capital',
-        'quota',
         'frequency',
         'pay_day',
-        'payments',
-        'status',
+        'terms',
     ];
 
     /**
@@ -42,16 +40,16 @@ class Loan extends Model
         return $this->belongsTo(Customer::class);
     }
 
-    public static function makeInstance(float $capital, float $interest_rate, int $payments, string $start_date, string $frequency = 'monthly', string $pay_day = null) : Loan
+    public static function makeInstance(float $capital, float $interest_rate, int $terms, string $start_date, string $frequency = 'monthly', string $pay_day = null) : Loan
     {
         // create PersonalLoan
-        $personalLoan = new SimplePersonalLoan($capital, $interest_rate, $payments, $start_date);
+        $personalLoan = new SimplePersonalLoan($capital, $interest_rate, $terms, $start_date);
         $loan = new Loan();
         $loan->capital = $capital;
         $loan->initial_capital = $capital;
         $loan->interest_rate = $interest_rate;
-        $loan->payments = $payments;
-        $loan->payments_remaining = $payments;
+        $loan->terms = $terms;
+        $loan->payments_remaining = $terms;
         $loan->payments_received = 0;
         $loan->payments_overdue = 0;
         $loan->quota = $personalLoan->calculateMonthlyPayment();
@@ -65,19 +63,6 @@ class Loan extends Model
         $this->frequency = $frequency;
         $this->end_date = $end_date;
         $this->pay_day = $pay_day;
-    }
-
-    /**
-     *
-     */
-    public static function calculateEndDate(string $start_date, int $payments, string $frequency = 'monthly')
-    {
-        if( $frequency == 'monthly' && $payments > 0 ) {
-            $end_date = Carbon::createFromFormat('Y-m-d', $start_date);
-            $end_date->addMonths($payments);
-            return $end_date->toDateString();
-        }
-        return null;
     }
 
 }

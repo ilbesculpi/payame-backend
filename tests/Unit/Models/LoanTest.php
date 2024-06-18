@@ -41,7 +41,7 @@ class LoanTest extends TestCase
     public function test_makeInstance_setPaymentsInfo()
     {
         $loan = Loan::makeInstance(500, 10, 10, '2020-09-15');
-        $this->assertEquals(10, $loan->payments);
+        $this->assertEquals(10, $loan->terms);
         $this->assertEquals(10, $loan->payments_remaining);
         $this->assertEquals(0, $loan->payments_received);
         $this->assertEquals(0, $loan->payments_overdue);
