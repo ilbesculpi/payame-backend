@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\UserController;
@@ -18,6 +19,10 @@ Route::any('/info', function(Request $request) {
 // })->middleware('auth:sanctum');
 
 Route::resource('users', UserController::class);
+
+Route::group(['prefix'=> 'auth'], function() {
+    Route::post('signin', [AuthController::class, 'signin']);
+});
 
 Route::resource('{user}/customers', CustomerController::class)
     ->missing(function (Request $request) {
