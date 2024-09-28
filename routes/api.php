@@ -2,10 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\LoanController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\LoanController;
+use App\Http\Controllers\Api\UserController;
 
 Route::any('/info', function(Request $request) {
     return response()->json([
