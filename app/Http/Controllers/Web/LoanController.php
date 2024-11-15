@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Models\Loan;
 use Illuminate\Http\Request;
+use App\Models\Loan;
+use App\Models\Customer;
 
 class LoanController extends Controller
 {
@@ -12,8 +13,13 @@ class LoanController extends Controller
      */
     public function index()
     {
+        $user_id = 5;
+        $loans = Loan::getUserActiveLoans($user_id)
+            ->get();
+
         return view('loans.index')
-            ->with('title', 'Loans');
+            ->with('title', 'Loans')
+            ->with('loans', $loans);
     }
 
     /**
@@ -21,7 +27,11 @@ class LoanController extends Controller
      */
     public function create()
     {
-        //
+        $user_id = 5;
+        $customers = Customer::getUserCustomers($user_id)
+            ->get();
+        return view('loans.create')
+            ->with('customers', $customers);
     }
 
     /**

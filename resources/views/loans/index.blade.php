@@ -23,11 +23,16 @@
 
   <section class="content">
 
+    <div class="my-3">
+      <a href="/loans/create" class="btn btn-primary">
+        <i class="fa fa-plus-circle"></i>
+        Registrar Nuevo Préstamo
+      </a>
+    </div>
     <!-- Default box -->
-    <div class="card">
+    <div class="card card-success card-outline">
       <div class="card-header">
-        <h3 class="card-title">Title</h3>
-
+        <h3 class="card-title">Préstamos activos</h3>
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
             <i class="fas fa-minus"></i>
@@ -38,15 +43,29 @@
         </div>
       </div>
       <div class="card-body">
-        Start creating your amazing application!
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th class="text-right">Balance</th>
+              <th class="text-right">Cuota mensual</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($loans as $loan)
+            <tr>
+              <td>{{ $loan->customer->full_name }}</td>
+              <td align="right">@money($loan->capital)</td>
+              <td align="right">@money($loan->quota)</td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
       </div>
-      <!-- /.card-body -->
       <div class="card-footer">
         Footer
       </div>
-      <!-- /.card-footer-->
     </div>
-    <!-- /.card -->
 
   </section>
 

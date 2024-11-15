@@ -16,9 +16,7 @@ class LoanController extends Controller
         $loans = Loan::where('user_id', $user->id)
             ->with('customer')
             ->get();
-        return [
-            'loans' => $loans
-        ];
+        return ['loans' => $loans];
     }
 
     /**
