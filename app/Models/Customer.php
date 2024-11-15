@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Database\Eloquent\Builder;
 
 class Customer extends Model
 {
@@ -22,6 +23,11 @@ class Customer extends Model
         'address',
         'notes'
     ];
+
+    public static function getUserCustomers($user_id) : Builder
+    {
+        return Self::where(['user_id' => $user_id]);
+    }
 
 }
 

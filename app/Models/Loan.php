@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
@@ -35,9 +37,15 @@ class Loan extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function customer(): BelongsTo
+    public function customer() : BelongsTo
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public static function getUserActiveLoans($user_id) : Builder
+    {
+        return Self::where(['user_id' => $user_id, 'status' => 'active'])
+            ->with('customer');
     }
 
     public static function makeInstance(float $capital, float $interest_rate, int $terms, string $start_date, string $frequency = 'monthly', string $pay_day = null) : Loan
