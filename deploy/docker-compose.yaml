@@ -9,6 +9,7 @@ services:
       dockerfile: ./deploy/Dockerfile
     # allocate as many volumes as necessary, if needed.
     volumes:
+      - ../:/var/www/html
       - ../storage/app:/var/www/html/storage/app
     environment:
       APP_NAME: ${APP_NAME}
@@ -41,6 +42,7 @@ services:
   database:
     restart: unless-stopped
     image: mysql:8.0
+    container_name: payame_dbserver
     volumes:
       - payame_db_data:/var/lib/mysql
     ports:
