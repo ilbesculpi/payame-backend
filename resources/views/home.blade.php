@@ -23,26 +23,26 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a class="dropdown-item d-flex align-items-center gap-2" href="#">
+                            <a class="dropdown-item d-flex align-items-center gap-2" href="/en">
                                 <span class="flag-icon flag-icon-us"></span>
                                 <span>English</span>
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item d-flex align-items-center gap-2" href="#">
+                            <a class="dropdown-item d-flex align-items-center gap-2" href="/es">
                                 <span class="flag-icon flag-icon-es"></span>
                                 <span>Español</span>
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item d-flex align-items-center gap-2" href="#">
+                            <a class="dropdown-item d-flex align-items-center gap-2" href="/fr">
                                 <span class="flag-icon flag-icon-fr"></span>
                                 <span>Français</span>
                             </a>
                         </li>
                     </ul>
                 </div>
-                <button class="btn btn-light rounded-pill px-4">@lang('Sign In')</button>
+                <button class="btn btn-light rounded-pill px-4">@lang('home.sign_in')</button>
             </div>
         </div>
     </nav>
@@ -50,12 +50,12 @@
     <!-- Hero Section -->
     <header class="py-5 text-center text-white" style="background: linear-gradient(to right, #0C59B3, #1a75df);">
         <div class="container py-5">
-            <h1 class="display-4 fw-bold mb-4">@lang('Track Your Loans with Confidence')</h1>
+            <h1 class="display-4 fw-bold mb-4">@lang('home.hero_title')</h1>
             <p class="lead mb-4 mx-auto" style="max-width: 600px;">
-                @lang('Stay on top of your loan payments, track multiple loans, and achieve financial freedom with Payame\'s intuitive loan management system.')
+                @lang('home.hero_subtitle')
             </p>
             <button class="btn btn-light rounded-pill px-4 py-2">
-                @lang('Get Started') <i class="bi bi-arrow-right ms-2"></i>
+                @lang('home.get_started') <i class="bi bi-arrow-right ms-2"></i>
             </button>
         </div>
     </header>
@@ -69,7 +69,7 @@
                         <div class="text-primary mb-4">
                             <i class="bi bi-bar-chart-fill fs-1" style="color: #0C59B3;"></i>
                         </div>
-                        <h3 class="h4 mb-3">@lang('Smart Analytics')</h3>
+                        <h3 class="h4 mb-3">@lang('home.smart_analytics')</h3>
                         <p class="text-muted">@lang('Get detailed insights into your loan portfolio with intuitive charts and reports that help you make informed decisions.')</p>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                         <div class="text-primary mb-4">
                             <i class="bi bi-shield-fill-check fs-1" style="color: #0C59B3;"></i>
                         </div>
-                        <h3 class="h4 mb-3">@lang('Secure Platform')</h3>
+                        <h3 class="h4 mb-3">@lang('home.secure_platform')</h3>
                         <p class="text-muted">@lang('Your financial data is protected with bank-level security measures, ensuring your information stays private and secure.')</p>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                         <div class="text-primary mb-4">
                             <i class="bi bi-clock-fill fs-1" style="color: #0C59B3;"></i>
                         </div>
-                        <h3 class="h4 mb-3">@lang('Payment Reminders')</h3>
+                        <h3 class="h4 mb-3">@lang('home.payment_reminders')</h3>
                         <p class="text-muted">@lang('Never miss a payment with automated reminders and notifications that keep you on track with your loan schedules.')</p>
                     </div>
                 </div>
