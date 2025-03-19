@@ -8,11 +8,21 @@ use App\Models\User;
 
 class CustomerController extends Controller
 {
+
     /**
-     * Retrieve a list of Customer.
+     * Retrieve a list of Customers.
      */
-    public function index(User $user)
+    public function index(Request $request)
     {
+        $user = $request->user();
+        if( !$user ) {
+            return response()
+                ->json([
+                    'code' => 'Unauthorized',
+                    'message' => 'User not authenticated.',
+                ], 401);
+        }
+
         $customers = Customer::where('user_id', $user->id)
             ->get();
         return [
@@ -23,8 +33,20 @@ class CustomerController extends Controller
     /**
      * Create a new Customer.
      */
-    public function store(Request $request, User $user)
+    public function store(Request $request)
     {
+        $user = $request->user();
+        if( !$user ) {
+            return response()
+                ->json([
+                    'code' => 'Unauthorized',
+                    'message' => 'User not authenticated.',
+                ], 401);
+        }
+        // $request->validate([
+        //     'full_name' => 'required',
+        //     'email' => 'required',
+        // ]);
         $request->merge([
             'user_id' => $user->id
         ]);
@@ -48,8 +70,9 @@ class CustomerController extends Controller
     /**
      * Retrieve the specified Customer.
      */
-    public function show(User $user, Customer $customer)
+    public function show(Request $request, Customer $customer)
     {
+        $user = $request->user();
         if( $customer->user_id !== $user->id ) {
             return response()
                 ->json([
@@ -66,8 +89,9 @@ class CustomerController extends Controller
     /**
      * Update the specified Customer.
      */
-    public function update(Request $request, User $user, Customer $customer)
+    public function update(Request $request, Customer $customer)
     {
+        $user = $request->user();
         if( $customer->user_id !== $user->id ) {
             return response()
                 ->json([

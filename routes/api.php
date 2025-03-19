@@ -24,13 +24,18 @@ Route::group(['prefix'=> 'auth'], function() {
     Route::post('signin', [AuthController::class, 'signin']);
 });
 
-Route::resource('{user}/customers', CustomerController::class)
-    ->missing(function (Request $request) {
-        return response()->json([
-            'code' => 'Not Found',
-            'message' => 'Resource not found.'
-        ], 404);
+Route::middleware('auth:sanctum')
+    ->group(function() {
+        Route::resource('customers', CustomerController::class)
+            ->missing(function (Request $request) {
+                return response()->json([
+                    'code' => 'Not Found',
+                    'message' => 'Resource not found.'
+                ], 404);
+            });
+        Route::resource('loans', LoanController::class);
     });
+
 
 Route::resource('{user}/loans', LoanController::class)
     ->missing(function (Request $request) {
