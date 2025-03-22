@@ -20,7 +20,7 @@ class SimplePersonalLoan extends PersonalLoan
         $this->start_date = $start_date;
     }
 
-    public function calculateMonthlyPayment()
+    public function calculatePaymentAmount()
     {
         return $this->amount * $this->interest_rate / 100.0;
     }

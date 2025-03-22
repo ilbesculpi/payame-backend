@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+
     public function signin(Request $request)
     {
         $credentials = $request->validate([
@@ -14,18 +15,20 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if( Auth::attempt($credentials) ) {
-            $user = Auth::user();
-            // issue an access token
-            $access_token = $user->createToken('app');
+        if( !Auth::attempt($credentials) ) {
             return response()->json([
-                'result' => true,
-                'user' => Auth::user(),
-                'access_token' => $access_token->plainTextToken,
+                'result' => false,
             ]);
         }
+
+        $user = Auth::user();
+        // issue a new token
+        $access_token = $user->createToken('app');
         return response()->json([
-            'result' => false,
+            'result' => true,
+            'user' => $user,
+            'access_token' => $access_token->plainTextToken,
         ]);
     }
+
 }
