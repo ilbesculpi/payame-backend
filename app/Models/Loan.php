@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Carbon\Carbon;
 use App\Payame\SimplePersonalLoan;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Loan extends Model
 {
@@ -22,7 +25,6 @@ class Loan extends Model
         'start_date',
         'method',
         'interest_rate',
-        'method',
         'capital',
         'frequency',
         'pay_day',
@@ -32,17 +34,23 @@ class Loan extends Model
     /**
      * Get the user that owns the comment.
      */
-    public function user() : BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function customer() : BelongsTo
+    public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
     }
 
-    public static function getUserActiveLoans($user_id) : Builder
+    public function associate(): BelongsToMany
+    {
+        return $this->belongsToMany(Associate::class, 'loans_associates')
+            ->withPivot('percentage');
+    }
+
+    public static function getUserActiveLoans($user_id)
     {
         return Self::where(['user_id' => $user_id, 'status' => 'active'])
             ->with('customer');

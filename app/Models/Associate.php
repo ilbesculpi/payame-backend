@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
-class Customer extends Model
+class Associate extends Model
 {
     use HasFactory, HasUlids;
 
@@ -16,14 +16,12 @@ class Customer extends Model
     protected $fillable = [
         'user_id',
         'full_name',
-        'document_id',
-        'telephone',
         'email',
-        'address',
+        'telephone',
         'notes'
     ];
 
-    public static function getUserCustomers($user_id)
+    public static function getUserAssociates($user_id)
     {
         return Self::where(['user_id' => $user_id]);
     }

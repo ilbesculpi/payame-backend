@@ -38,6 +38,15 @@ class LoanController extends Controller
         $loan->user_id = $user->id;
         $loan->status = $request->input('status', 'active');
         $loan->save();
+
+        if( $request->has('associates') ) {
+            $associates = [];
+            foreach ($request->input('associates') as $associate) {
+                $associates[$associate['associate_id']] = ['percentage' => $associate['percentage']];
+            }
+            $loan->associate()->attach($associates);
+        }
+
         return response()
             ->json([
                 'loan' => $loan

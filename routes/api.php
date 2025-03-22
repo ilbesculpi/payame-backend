@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\AssociateController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\LoanController;
 use App\Http\Controllers\Api\UserController;
@@ -34,6 +35,7 @@ Route::middleware('auth:sanctum')
                 ], 404);
             });
         Route::resource('{customer}/loans', LoanController::class);
+        Route::resource('associates', AssociateController::class);
     });
 
 

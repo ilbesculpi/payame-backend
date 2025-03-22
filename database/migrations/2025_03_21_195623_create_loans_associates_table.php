@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('loans_associates', function (Blueprint $table) {
-            $table->id('loan_associate_id');
+            $table->id();
             $table->foreignUlid('loan_id')->constrained();
             $table->foreignUlid('associate_id')->constrained();
             $table->decimal('percentage', 5, 2);
