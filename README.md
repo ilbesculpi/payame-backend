@@ -89,6 +89,11 @@ This section provides instructions on how to set up the development environment 
     docker compose -f deploy/docker-compose.yml down
     ```
 
+6.  **Similar Apps**
+
+    * [Expensify](https://www.expensify.com/)
+
+    
 ## License
 
 The Payame App is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
