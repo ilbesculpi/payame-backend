@@ -15,14 +15,14 @@ return new class extends Migration
             $table->ulid('id');
             $table->foreignUlid('customer_id')->constrained();
             $table->foreignUlid('loan_id')->constrained();
-            $table->dateTime('date');
-            $table->decimal('capital_paid', total: 8, places: 2)
+            $table->dateTime('payment_date');
+            $table->decimal('payment_capital', total: 8, places: 2)
                 ->default(0);
-            $table->decimal('interest_paid', total: 8, places: 2)
+            $table->decimal('payment_interest', total: 8, places: 2)
                 ->default(0);
-            $table->decimal('delay_paid', total: 8, places: 2)
+            $table->decimal('payment_delay', total: 8, places: 2)
                 ->default(0);
-            $table->decimal('total', total: 8, places: 2)
+            $table->decimal('payment_total', total: 8, places: 2)
                 ->default(0);
             $table->enum('payment_method', ['cash', 'wire']);
             $table->mediumText('notes')

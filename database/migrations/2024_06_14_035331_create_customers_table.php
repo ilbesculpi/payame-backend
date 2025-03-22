@@ -21,6 +21,8 @@ return new class extends Migration
                 ->nullable();
             $table->string('email')
                 ->nullable();
+            $table->string('company')
+                ->nullable();
             $table->string('address')
                 ->nullable();
             $table->mediumText('notes')
