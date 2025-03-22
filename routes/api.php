@@ -15,10 +15,6 @@ Route::any('/info', function(Request $request) {
     ]);
 });
 
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
-
 Route::resource('users', UserController::class);
 
 Route::group(['prefix'=> 'auth'], function() {
@@ -27,6 +23,7 @@ Route::group(['prefix'=> 'auth'], function() {
 
 Route::middleware('auth:sanctum')
     ->group(function() {
+
         Route::resource('customers', CustomerController::class)
             ->missing(function (Request $request) {
                 return response()->json([
@@ -34,15 +31,20 @@ Route::middleware('auth:sanctum')
                     'message' => 'Resource not found.'
                 ], 404);
             });
+
         Route::resource('{customer}/loans', LoanController::class);
+
         Route::resource('associates', AssociateController::class);
+
+        Route::resource('loans', LoanController::class)
+            ->missing(function (Request $request) {
+                return response()->json([
+                    'code' => 'Not Found',
+                    'message' => 'Resource not found.'
+                ], 404);
+            });
+
     });
 
 
-Route::resource('{user}/loans', LoanController::class)
-    ->missing(function (Request $request) {
-        return response()->json([
-            'code' => 'Not Found',
-            'message' => 'Resource not found.'
-        ], 404);
-    });
+

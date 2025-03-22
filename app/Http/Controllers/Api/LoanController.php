@@ -12,10 +12,11 @@ class LoanController extends Controller
     /**
      * Retrieve a list of Loan.
      */
-    public function index(User $user)
+    public function index(Request $request)
     {
+        $user = $request->user();
         $loans = Loan::where('user_id', $user->id)
-            ->with('customer')
+            ->with('customer', 'associate')
             ->get();
         return ['loans' => $loans];
     }
