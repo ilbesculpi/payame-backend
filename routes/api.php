@@ -33,7 +33,7 @@ Route::middleware('auth:sanctum')
                     'message' => 'Resource not found.'
                 ], 404);
             });
-        Route::resource('loans', LoanController::class);
+        Route::resource('{customer}/loans', LoanController::class);
     });
 
 

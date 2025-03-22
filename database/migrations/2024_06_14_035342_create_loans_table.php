@@ -19,12 +19,12 @@ return new class extends Migration
                 ->constrained();
             $table->decimal('initial_capital', total: 8, places: 2);
             $table->decimal('capital', total: 8, places: 2);
-            $table->decimal('quota', total: 8, places: 2);
             $table->enum('method', ['simple', 'fixed', 'compound', 'annual'])
                 ->default('simple');
             $table->float('interest_rate');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->decimal('payment_amount', total: 8, places: 2);
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->enum('frequency', ['monthly', 'single', 'open'])
                 ->default('monthly');
             $table->string('pay_day')
@@ -42,7 +42,7 @@ return new class extends Migration
                 ->default(0);
             $table->enum('status', ['active', 'paused', 'completed'])
                 ->default('active');
-            $table->mediumText('notes');
+            $table->mediumText('notes')->nullable();
             $table->timestamps();
             $table->primary('id');
         });

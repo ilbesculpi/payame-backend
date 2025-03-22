@@ -60,7 +60,7 @@ class Loan extends Model
         $loan->payments_remaining = $terms;
         $loan->payments_received = 0;
         $loan->payments_overdue = 0;
-        $loan->quota = $personalLoan->calculateMonthlyPayment();
+        $loan->payment_amount = $personalLoan->calculatePaymentAmount();
         $loan->setDateInfo($start_date, $personalLoan->getPayoffDate(), $frequency, $pay_day);
         return $loan;
     }
