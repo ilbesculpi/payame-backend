@@ -10,7 +10,7 @@ class CustomerController extends Controller
 {
 
     /**
-     * Retrieve a list of Customers.
+     * Retrieve a list of User Customers.
      */
     public function index(Request $request)
     {

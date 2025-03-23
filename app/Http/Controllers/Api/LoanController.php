@@ -12,10 +12,11 @@ class LoanController extends Controller
     /**
      * Retrieve a list of Loan.
      */
-    public function index(User $user)
+    public function index(Request $request)
     {
+        $user = $request->user();
         $loans = Loan::where('user_id', $user->id)
-            ->with('customer')
+            ->with('customer', 'associate')
             ->get();
         return ['loans' => $loans];
     }
@@ -38,6 +39,15 @@ class LoanController extends Controller
         $loan->user_id = $user->id;
         $loan->status = $request->input('status', 'active');
         $loan->save();
+
+        if( $request->has('associates') ) {
+            $associates = [];
+            foreach ($request->input('associates') as $associate) {
+                $associates[$associate['associate_id']] = ['percentage' => $associate['percentage']];
+            }
+            $loan->associate()->attach($associates);
+        }
+
         return response()
             ->json([
                 'loan' => $loan
