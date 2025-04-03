@@ -80,6 +80,8 @@ class CustomerController extends Controller
                     'message' => 'Unauthorized access to this resource.'
                 ], 403);
         }
+        $customer->payments;
+        $customer->loans;
         return response()
             ->json([
                 'customer' => $customer
