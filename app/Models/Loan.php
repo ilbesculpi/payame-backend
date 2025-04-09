@@ -56,29 +56,31 @@ class Loan extends Model
             ->with('customer');
     }
 
-    public static function makeInstance(float $capital, float $interest_rate, int $terms, string $start_date, string $frequency = 'monthly', string $pay_day = null) : Loan
+    public static function makeInstanceSimpleInterest(float $amount, float $interest_rate, int $terms = 12, string $terms_unit = 'months', string $start_date, string $pay_day = '1'): Loan
     {
         // create PersonalLoan
-        $personalLoan = new SimplePersonalLoan($capital, $interest_rate, $terms, $start_date);
+        $personalLoan = new SimplePersonalLoan(
+            $amount,
+            $interest_rate,
+            $terms,
+            $start_date
+        );
         $loan = new Loan();
-        $loan->capital = $capital;
-        $loan->initial_capital = $capital;
+        $loan->initial_amount = $amount;
+        $loan->current_amount = $amount;
         $loan->interest_rate = $interest_rate;
+        $loan->interest_method = 'simple';
         $loan->terms = $terms;
         $loan->payments_remaining = $terms;
         $loan->payments_received = 0;
         $loan->payments_overdue = 0;
         $loan->payment_amount = $personalLoan->calculatePaymentAmount();
-        $loan->setDateInfo($start_date, $personalLoan->getPayoffDate(), $frequency, $pay_day);
+        $loan->terms = $terms;
+        $loan->terms_unit = $terms_unit;
+        $loan->pay_day = $pay_day;
+        $loan->start_date = $start_date;
+        $loan->end_date = $personalLoan->getPayoffDate();
         return $loan;
-    }
-
-    public function setDateInfo(string $start_date, string $end_date, string $frequency, string $pay_day = null)
-    {
-        $this->start_date = $start_date;
-        $this->frequency = $frequency;
-        $this->end_date = $end_date;
-        $this->pay_day = $pay_day;
     }
 
 }
