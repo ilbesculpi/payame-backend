@@ -57,8 +57,9 @@ class LoanController extends Controller
     /**
      * Retrieve the specified Loan.
      */
-    public function show(User $user, Loan $loan)
+    public function show(Request $request, Loan $loan)
     {
+        $user = $request->user();
         if( $loan->user_id !== $user->id ) {
             return response()
                 ->json([
