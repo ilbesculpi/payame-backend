@@ -32,7 +32,7 @@ Route::middleware('auth:sanctum')
                 ], 404);
             });
 
-        Route::resource('{customer}/loans', LoanController::class);
+        Route::resource('customers/{customer}/loans', LoanController::class);
 
         Route::resource('associates', AssociateController::class);
 

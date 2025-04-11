@@ -27,13 +27,13 @@ class LoanController extends Controller
     public function store(Request $request, Customer $customer)
     {
         $user = $request->user();
-        $loan = Loan::makeInstance(
-            $request->input('capital'),
+        $loan = Loan::makeInstanceSimpleInterest(
+            $request->input('amount'),
             $request->input('interest_rate'),
             $request->input('terms'),
+            $request->input('terms_unit', 'month'),
             $request->input('start_date'),
-            $request->input('frequency'),
-            $request->input('pay_day'),
+            $request->input('pay_day', '1'),
         );
         $loan->customer_id = $customer->id;
         $loan->user_id = $user->id;
@@ -57,8 +57,9 @@ class LoanController extends Controller
     /**
      * Retrieve the specified Loan.
      */
-    public function show(User $user, Loan $loan)
+    public function show(Request $request, Loan $loan)
     {
+        $user = $request->user();
         if( $loan->user_id !== $user->id ) {
             return response()
                 ->json([
