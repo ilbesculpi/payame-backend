@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Loan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Models\Payment;
 use App\Models\User;
 
@@ -12,9 +14,9 @@ class PaymentController extends Controller
     /**
      * Retrieve a list of Payments.
      */
-    public function index(Customer $customer)
+    public function index(Loan $loan)
     {
-        $payments = Payment::where('customer_id', $customer->id)
+        $payments = Payment::where('loan_id', $loan->id)
             ->get();
         return [
             'payments' => $payments
@@ -24,34 +26,40 @@ class PaymentController extends Controller
     /**
      * Create a new Customer.
      */
-    public function store(Request $request, User $user)
+    public function store(Request $request, Loan $loan)
     {
+        $user = $request->user();
         $request->merge([
-            'user_id' => $user->id
+            'loan_id' => $loan->id,
+            'customer_id' => $loan->customer->id,
         ]);
-        $customer = Customer::create(
+        Log::info($request->all());
+        $payment = Payment::create(
             $request->only([
-                'full_name',
-                'document_id',
-                'telephone',
-                'email',
-                'address',
+                'customer_id',
+                'loan_id',
+                'payment_date',
+                'payment_method',
+                'payment_capital',
+                'payment_interest',
+                'payment_delay',
                 'notes',
-                'user_id',
             ])
         );
+        $payment->load('loan', 'customer');
         return response()
             ->json([
-                'customer' => $customer
+                'payment' => $payment
             ], 201);
     }
 
     /**
-     * Retrieve the specified Customer.
+     * Retrieve the specified Payment.
      */
-    public function show(User $user, Customer $customer)
+    public function show(Request $request, Payment $payment)
     {
-        if( $customer->user_id !== $user->id ) {
+        $user = $request->user();
+        if( $payment->customer()->user_id !== $user->id ) {
             return response()
                 ->json([
                     'code' => 'Forbidden',
@@ -60,7 +68,7 @@ class PaymentController extends Controller
         }
         return response()
             ->json([
-                'customer' => $customer
+                'payment' => $payment
             ]);
     }
 

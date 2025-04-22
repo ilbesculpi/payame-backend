@@ -50,6 +50,11 @@ class Loan extends Model
             ->withPivot('percentage');
     }
 
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
+    }
+
     public static function getUserActiveLoans($user_id)
     {
         return Self::where(['user_id' => $user_id, 'status' => 'active'])
