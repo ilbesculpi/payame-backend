@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\PaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -36,7 +37,17 @@ Route::middleware('auth:sanctum')
 
         Route::resource('associates', AssociateController::class);
 
+        Route::get('loans/{loan}/payments', [PaymentController::class, 'getLoanPaymentHistory']);
+
         Route::resource('loans', LoanController::class)
+            ->missing(function (Request $request) {
+                return response()->json([
+                    'code' => 'Not Found',
+                    'message' => 'Resource not found.'
+                ], 404);
+            });
+
+        Route::resource('payments/{loan}', PaymentController::class)
             ->missing(function (Request $request) {
                 return response()->json([
                     'code' => 'Not Found',
