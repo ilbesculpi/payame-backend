@@ -53,13 +53,23 @@ class PaymentController extends Controller
             ], 201);
     }
 
+    public function getLoanPaymentHistory(Loan $loan, Request $request)
+    {
+        $user = $request->user();
+        $payments = Payment::where('loan_id', $loan->id)
+            ->get();
+        return [
+            'payments' => $payments
+        ];
+    }
+
     /**
      * Retrieve the specified Payment.
      */
     public function show(Request $request, Payment $payment)
     {
         $user = $request->user();
-        if( $payment->customer()->user_id !== $user->id ) {
+        if( $payment->customer->user_id !== $user->id ) {
             return response()
                 ->json([
                     'code' => 'Forbidden',
@@ -73,51 +83,53 @@ class PaymentController extends Controller
     }
 
     /**
-     * Update the specified Customer.
+     * Update the specified Payment.
      */
-    public function update(Request $request, User $user, Customer $customer)
+    public function update(Request $request, Payment $payment)
     {
-        if( $customer->user_id !== $user->id ) {
+        $user = $request->user();
+        if( $payment->customer->user_id !== $user->id ) {
             return response()
                 ->json([
                     'code' => 'Forbidden',
                     'message' => 'Unauthorized access to this resource.'
                 ], 403);
         }
-        $customer->fill(
+        $payment->fill(
             $request->only([
-                'full_name',
-                'document_id',
-                'telephone',
-                'email',
-                'address',
+                'payment_date',
+                'payment_method',
+                'payment_capital',
+                'payment_interest',
+                'payment_delay',
                 'notes',
-                'user_id',
             ])
         );
-        $customer->save();
+        $payment->save();
         return response()
             ->json([
-                'customer' => $customer
+                'payment' => $payment
             ]);
     }
 
     /**
-     * Delete the specified Customer.
+     * Delete the specified Payment.
      */
-    public function destroy(User $user, Customer $customer)
+    public function destroy(Request $request, Payment $payment)
     {
-        if( $customer->user_id !== $user->id ) {
+        $user = $request->user();
+        if( $payment->customer->user_id !== $user->id ) {
             return response()
                 ->json([
                     'code' => 'Forbidden',
                     'message' => 'Unauthorized access to this resource.'
                 ], 403);
         }
-        $result = $customer->delete();
+        $result = $payment->delete();
         return response()
             ->json([
                 'result' => $result
             ]);
     }
+
 }

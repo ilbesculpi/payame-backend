@@ -37,6 +37,8 @@ Route::middleware('auth:sanctum')
 
         Route::resource('associates', AssociateController::class);
 
+        Route::get('loans/{loan}/payments', [PaymentController::class, 'getLoanPaymentHistory']);
+
         Route::resource('loans', LoanController::class)
             ->missing(function (Request $request) {
                 return response()->json([
