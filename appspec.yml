@@ -1,0 +1,23 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/laravel
+permissions:
+  - object: /var/www/laravel
+    pattern: "**"
+    owner: ec2-user
+    group: adm
+hooks:
+  BeforeInstall:
+    - location: scripts/install_dependencies.sh
+      timeout: 300
+      runas: root
+  AfterInstall:
+    - location: scripts/set_permissions.sh
+      timeout: 300
+      runas: root
+  ApplicationStart:
+    - location: scripts/post_install.sh
+      timeout: 300
+      runas: root
