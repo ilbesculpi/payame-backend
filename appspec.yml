@@ -3,7 +3,7 @@ os: linux
 files:
   - source: /
     destination: /var/www/backend
-  - source: infrastructure/backend.conf
+  - source: infrastructure/vhost.conf
     destination: /etc/nginx/sites-available/backend.conf
 permissions:
   - object: /var/www/backend
