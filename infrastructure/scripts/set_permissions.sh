@@ -2,7 +2,7 @@
 cd /var/www/laravel
 
 NGINX_USER="nginx"
-NGINX_GROUP="www-data"
+NGINX_GROUP="www"
 
 echo "Setting storage directory permissions..."
 chmod -R 775 storage
