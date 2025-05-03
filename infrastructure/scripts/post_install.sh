@@ -3,7 +3,7 @@ cd /var/www/laravel
 
 
 echo "Creating symbolic link for Nginx configuration..."
-ln -sf /etc/nginx/sites-available/laravel /etc/nginx/sites-enabled/laravel
+sudo ln -s /etc/nginx/sites-available/backend.conf /etc/nginx/sites-enabled/
 
 echo "Testing Nginx configuration..."
 nginx -t
