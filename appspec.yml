@@ -3,6 +3,8 @@ os: linux
 files:
   - source: /
     destination: /var/www/laravel
+  - source: infrastructure//laravel.conf
+    destination: /etc/nginx/sites-available/laravel
 permissions:
   - object: /var/www/laravel
     pattern: "**"
@@ -10,14 +12,14 @@ permissions:
     group: adm
 hooks:
   BeforeInstall:
-    - location: scripts/install_dependencies.sh
+    - location: infrastructure/scripts/install_dependencies.sh
       timeout: 300
       runas: root
   AfterInstall:
-    - location: scripts/set_permissions.sh
+    - location: infrastructure/scripts/set_permissions.sh
       timeout: 300
       runas: root
   ApplicationStart:
-    - location: scripts/post_install.sh
+    - location: infrastructure/scripts/post_install.sh
       timeout: 300
       runas: root
