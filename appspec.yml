@@ -3,8 +3,8 @@ os: linux
 files:
   - source: /
     destination: /var/www/backend
-  - source: infrastructure/vhost.conf
-    destination: /etc/nginx/sites-available/backend.conf
+  - source: infrastructure/backend.conf
+    destination: /etc/nginx/sites-available/
 permissions:
   - object: /var/www/backend
     pattern: "**"
