@@ -1,6 +1,5 @@
 #!/bin/bash
-cd /var/www/laravel
-
+cd /var/www/backend
 
 echo "Installing Composer dependencies..."
 composer install --no-dev --optimize-autoloader --no-interaction

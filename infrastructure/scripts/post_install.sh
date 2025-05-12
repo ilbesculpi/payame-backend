@@ -1,6 +1,5 @@
 #!/bin/bash
-cd /var/www/laravel
-
+cd /var/www/backend
 
 echo "Creating symbolic link for Nginx configuration..."
 sudo ln -s /etc/nginx/sites-available/backend.conf /etc/nginx/sites-enabled/

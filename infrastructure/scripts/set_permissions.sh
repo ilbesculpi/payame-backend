@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /var/www/laravel
+cd /var/www/backend
 
 NGINX_USER="nginx"
 NGINX_GROUP="www"
