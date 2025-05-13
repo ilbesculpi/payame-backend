@@ -2,6 +2,7 @@
 cd /var/www/backend
 
 echo "Installing Composer dependencies..."
+composer update --no-interaction
 composer install --no-dev --optimize-autoloader --no-interaction
 
 echo "Generating application key if it doesn't exist..."
